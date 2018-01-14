@@ -12,6 +12,9 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, 'src'), // `__dirname` is root of the project
+    watchOptions: {
+      ignored: /node_modules/
+    },
   },
   resolve: {
     extensions: ['.js', '.json', '.jsx']
@@ -57,6 +60,9 @@ module.exports = {
         test : /\.scss$/,
         use: [
           {
+            loader: 'style-loader'
+          },
+          {
             loader: 'css-loader',
             options: {
                 modules: true,
@@ -81,7 +87,11 @@ module.exports = {
       {
         test: /\.json$/,
         loader: 'json-loader',
-      }
+      },
+      {test: /\.woff$/, loader: 'url?limit=10240&mimetype=application/font-woff'},
+      {test: /\.ttf$/, loader: 'url?limit=10240&mimetype=application/x-font-ttf'},
+      {test: /\.eot$/, loader: 'url?limit=10240&mimetype=application/vnd.ms-fontobject'}
+
     ]
   }
 };
